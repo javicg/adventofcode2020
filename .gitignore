@@ -1,0 +1,8 @@
+# Scala/sbt
+project/*
+target/
+.bsp/
+
+# IntelliJ
+*.iml
+.idea/

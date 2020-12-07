@@ -6,9 +6,9 @@ import Utils.using
 import scala.io.Source
 
 object Solution extends App {
-  val nonEmptyBagRegex = "([a-zA-Z]+( [a-zA-Z]+)*) bags contain".r
-  val innerBagsRegex = "((\\d+) ([a-zA-Z]+( [a-zA-Z]+)*)) bags*".r
-  val emptyBagRegex = "([a-zA-Z]+( [a-zA-Z]+)*) bags contain no other bags\\.".r
+  val nonEmptyBagRegex = """([a-zA-Z]+( [a-zA-Z]+)*) bags contain""".r
+  val innerBagsRegex = """((\d+) ([a-zA-Z]+( [a-zA-Z]+)*)) bags*""".r
+  val emptyBagRegex = """([a-zA-Z]+( [a-zA-Z]+)*) bags contain no other bags\.""".r
 
   val filename = "day7/input.txt"
   var catalogue = Map.empty[String, Map[String, Int]]

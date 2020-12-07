@@ -6,11 +6,11 @@ import Utils.using
 import scala.io.Source
 
 object Solution extends App {
-  val filename = "day7/input.txt"
   val nonEmptyBagRegex = "([a-zA-Z]+( [a-zA-Z]+)*) bags contain".r
   val innerBagsRegex = "((\\d+) ([a-zA-Z]+( [a-zA-Z]+)*)) bags*".r
   val emptyBagRegex = "([a-zA-Z]+( [a-zA-Z]+)*) bags contain no other bags\\.".r
 
+  val filename = "day7/input.txt"
   var catalogue = Map.empty[String, Map[String, Int]]
   using(Source.fromResource(filename)) { source =>
     for (line <- source.getLines()) {
@@ -28,6 +28,8 @@ object Solution extends App {
       }
     }
   }
+
+  println(countInnerBags("shiny gold"))
 
   def countContainersFor(queryBag: String): Int = {
     getUniquePossibleContainers(queryBag).size
@@ -52,6 +54,4 @@ object Solution extends App {
     })
     numInnerBags
   }
-
-  println(countInnerBags("shiny gold"))
 }

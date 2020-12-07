@@ -7,13 +7,14 @@ import scala.io.Source
 
 object Solution extends App {
   val filename = "day1/input.txt"
-
   var numbers: List[Int] = List()
   using(Source.fromResource(filename)) { source =>
     for (line <- source.getLines()) {
       numbers ::= line.toInt
     }
   }
+
+  println(findSum(numbers, 2020))
 
   def findSum(numbers: List[Int], sum: Int): Int = {
     for (num1 <- numbers) {
@@ -27,6 +28,4 @@ object Solution extends App {
     }
     -1
   }
-
-  println(findSum(numbers, 2020))
 }

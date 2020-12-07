@@ -6,11 +6,7 @@ import Utils.using
 import scala.io.Source
 
 object Solution extends App {
-  case class Policy(min: Int, max: Int, letter: Char)
-  case class Entry(password: String, policy: Policy)
-
   val filename = "day2/input.txt"
-
   var entries: List[Entry] = List()
   using(Source.fromResource(filename)) { source =>
     val pattern = """^(\d+)-(\d+)\s(.):\s(\w+)$""".r
@@ -20,6 +16,11 @@ object Solution extends App {
       }
     }
   }
+
+  println(entries.count(isValid_newPolicy))
+
+  case class Policy(min: Int, max: Int, letter: Char)
+  case class Entry(password: String, policy: Policy)
 
   def isValid_oldPolicy(entry: Entry): Boolean = {
     val count = entry.password.count(c => c.equals(entry.policy.letter))
@@ -33,6 +34,4 @@ object Solution extends App {
     val secondCharEquals = secondChar == entry.policy.letter
     (firstCharEquals && !secondCharEquals) || (!firstCharEquals && secondCharEquals)
   }
-
-  println(entries.count(isValid_newPolicy))
 }

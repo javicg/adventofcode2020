@@ -6,6 +6,30 @@ import Utils.using
 import scala.io.Source
 
 object Solution extends App {
+  val filename = "day4/input.txt"
+  var numValid = 0
+  using(Source.fromResource(filename)) { source =>
+    val lineIter: Iterator[String] = source.getLines()
+    while (lineIter.hasNext) {
+      var line = lineIter.next()
+      var passport: Passport = Passport(Map())
+      while (line.nonEmpty) {
+        passport = passport.merge(passportFrom(line))
+        if (lineIter.hasNext) {
+          line = lineIter.next()
+        } else {
+          line = ""
+        }
+      }
+
+      if (passport.isValid) {
+        numValid += 1
+      }
+    }
+  }
+
+  println(numValid)
+
   case class Passport(fields: Map[String, String]) {
     def merge(passport: Passport): Passport = {
       Passport(fields ++ passport.fields)
@@ -57,29 +81,4 @@ object Solution extends App {
     }
     Passport(values)
   }
-
-  val filename = "day4/input.txt"
-
-  var numValid = 0
-  using(Source.fromResource(filename)) { source =>
-    val lineIter: Iterator[String] = source.getLines()
-    while (lineIter.hasNext) {
-      var line = lineIter.next()
-      var passport: Passport = Passport(Map())
-      while (line.nonEmpty) {
-        passport = passport.merge(passportFrom(line))
-        if (lineIter.hasNext) {
-          line = lineIter.next()
-        } else {
-          line = ""
-        }
-      }
-
-      if (passport.isValid) {
-        numValid += 1
-      }
-    }
-  }
-
-  println(numValid)
 }

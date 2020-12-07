@@ -21,7 +21,7 @@ object Solution extends App {
         val bag = nonEmptyBagRegex.findAllIn(line).group(1)
         val innerBags = innerBagsRegex.findAllMatchIn(line)
         var innerBagCount = Map.empty[String, Int]
-        for(innerBag <- innerBags) {
+        for (innerBag <- innerBags) {
           innerBagCount += (innerBag.group(3) -> innerBag.group(2).toInt)
         }
         catalogue += (bag -> innerBagCount)

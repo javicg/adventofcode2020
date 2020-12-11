@@ -14,6 +14,4 @@ case class Location(row: Int, column: Int, state:Char) {
 
   def leave: Location = Location(row, column, Location.Empty)
   def occupy: Location = Location(row, column, Location.Occupied)
-
-  override def toString: String = state.toString
 }

@@ -16,13 +16,7 @@ object Lounge {
 case class Lounge(locations: List[List[Location]]) {
   def simulateFlow(): Lounge = {
     val newLounge = simulateNextRound()
-    if (this.equals(newLounge)) {
-      println(">> Simulation stable!")
-      println(this)
-      this
-    } else {
-      newLounge.simulateFlow()
-    }
+    if (this.equals(newLounge)) this else newLounge.simulateFlow()
   }
 
   def countOccupiedSeats(): Int = {
@@ -77,14 +71,5 @@ case class Lounge(locations: List[List[Location]]) {
     } catch {
       case _: IndexOutOfBoundsException => None
     }
-  }
-
-  override def toString: String = {
-    val sb = new StringBuilder
-    sb.append("=" * locations.head.size + "\n")
-    locations.map(row => row.mkString + "\n")
-      .foreach(rowAsString => sb.append(rowAsString))
-    sb.append("=" * locations.head.size + "\n")
-    sb.toString
   }
 }

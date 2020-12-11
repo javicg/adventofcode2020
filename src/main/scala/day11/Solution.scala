@@ -6,10 +6,6 @@ import Utils.using
 import scala.io.Source
 
 object Solution extends App {
-  val EMPTY = 'L'
-  val OCCUPIED = '#'
-  val FLOOR = '.'
-
   val filename = "day11/input.txt"
   var seatMap = List.empty[String]
   using(Source.fromResource(filename)) { source =>
@@ -19,6 +15,5 @@ object Solution extends App {
   }
 
   val lounge = Lounge.from(seatMap)
-  lounge.simulateFlow()
-  println(lounge.countOccupiedSeats())
+  println(lounge.simulateFlow().countOccupiedSeats())
 }

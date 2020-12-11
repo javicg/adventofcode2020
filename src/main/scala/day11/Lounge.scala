@@ -4,27 +4,24 @@ package day11
 
 object Lounge {
   def from(seatMap: List[String]): Lounge = {
-    var locations = List.empty[List[Location]]
-    for ((row, i) <- seatMap.zipWithIndex) {
-      var locationsInRow = List.empty[Location]
-      for ((s, j) <- row.zipWithIndex) {
-        locationsInRow = locationsInRow :+ Location(i,j,s)
-      }
-      locations = locations :+ locationsInRow
-    }
+    val locations: List[List[Location]] = seatMap.zipWithIndex.map(r =>
+      r._1.zipWithIndex.map(s =>
+        Location(r._2, s._2, s._1)
+      ).toList
+    )
     Lounge(locations)
   }
 }
 
-case class Lounge(var locations: List[List[Location]]) {
-  def simulateFlow(): Unit = {
-    val current = locations
-    simulateNextRound()
-    if (current.equals(locations)) {
+case class Lounge(locations: List[List[Location]]) {
+  def simulateFlow(): Lounge = {
+    val newLounge = simulateNextRound()
+    if (this.equals(newLounge)) {
       println(">> Simulation stable!")
       println(this)
+      this
     } else {
-      simulateFlow()
+      newLounge.simulateFlow()
     }
   }
 
@@ -32,14 +29,14 @@ case class Lounge(var locations: List[List[Location]]) {
     this.locations.flatten.count(l => l.isOccupied)
   }
 
-  private def simulateNextRound(): Unit = {
-    this.locations = locations.map(row => row.map(toNewState))
+  private def simulateNextRound(): Lounge = {
+    Lounge(locations.map(row => row.map(toNewState)))
   }
 
   private def toNewState(location: Location): Location = {
     location match {
-      case l if l.isEmpty && isComfortable(l) => Location(l.row, l.column, Location.Occupied)
-      case l if l.isOccupied && isUncomfortable(l) => Location(l.row, l.column, Location.Empty)
+      case l if l.isEmpty && isComfortable(l) => l.occupy
+      case l if l.isOccupied && isUncomfortable(l) => l.leave
       case l => l
     }
   }

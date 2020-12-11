@@ -11,5 +11,9 @@ case class Location(row: Int, column: Int, state:Char) {
   def isFloor: Boolean = state == Location.Floor
   def isEmpty: Boolean = state == Location.Empty
   def isOccupied: Boolean = state == Location.Occupied
+
+  def leave: Location = Location(row, column, Location.Empty)
+  def occupy: Location = Location(row, column, Location.Occupied)
+
   override def toString: String = state.toString
 }

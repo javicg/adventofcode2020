@@ -3,8 +3,6 @@ package day16
 
 import Utils.using
 
-import com.github.javicg.day16.Solution.mappedRules
-
 import scala.io.Source
 
 object Solution extends App {
